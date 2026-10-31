@@ -1,0 +1,74 @@
+  :root { color-scheme: light; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: #ffffff;
+    color: #111;
+  }
+  .spacer {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 24px;
+  }
+  .spacer h1 { font-size: clamp(28px, 5vw, 48px); font-weight: 600; margin: 0 0 12px; }
+  .spacer p { color: #666; font-size: 16px; margin: 0; }
+
+  /* This is the tall scroll track. Its height controls how much scrolling
+     it takes to play through all 30 frames. More vh = slower/longer scrub. */
+  .scroll-track {
+    position: relative;
+    height: 400vh;
+  }
+
+  /* The sticky stage pins the canvas in the viewport while the track scrolls past it. */
+  .sticky-stage {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3f3f3;
+  }
+
+  canvas {
+    display: block;
+  }
+
+  .hud {
+    position: fixed;
+    bottom: 18px;
+    left: 18px;
+    font-size: 12px;
+    color: #999;
+    font-variant-numeric: tabular-nums;
+    pointer-events: none;
+    z-index: 10;
+  }
+
+  .progress-rail {
+    position: fixed;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 160px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    z-index: 10;
+  }
+  .progress-fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #111;
+    border-radius: 2px;
+    height: 0%;
+  }

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jaze Clips — Cables stay put</title>
+<meta name="description" content="Jaze Clips are 30 mm adhesive discs with a snap-in channel that keeps a cable exactly where you put it.">
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/bee-nav.css">
+<link rel="stylesheet" href="css/bee-grid.css">
+<link rel="stylesheet" href="css/bee-custom.css">
+<link rel="stylesheet" href="css/bee-shim.css">
+<link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+
+<script src="js/layout.js" data-part="nav"></script>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero hero-pending" data-nav="light" id="hero">
+    <div class="hero__content">
+      <h1 class="hero__headline">Cables stay put.</h1>
+      <p class="hero__subtitle">A 30&nbsp;mm adhesive disc with a snap-in channel that holds your cable exactly where you want it.</p>
+      <div class="hero__buttons">
+        <a class="jbtn jbtn--solid" href="product.html"><span>Get Jaze Clips</span></a>
+        <a class="jbtn" href="#how"><span>See how it works</span></a>
+      </div>
+    </div>
+    <div class="hero__image-container">
+      <img class="hero__image" src="assets/images/realphoto.jpg" alt="A Jaze Clip: a round white adhesive base with a raised, open-topped cable channel. A dark cable approaches from the left.">
+    </div>
+  </section>
+
+  <!-- STATEMENT -->
+  <section class="scroll-text" data-nav="light">
+    <p class="scroll-text__item">One small clip keeps a cable from sliding off the edge of your desk. Stick it down, press the cable into the channel, and it stays right there.</p>
+  </section>
+
+  <!-- CABLE SCRUBBER: scroll plays frames 00 → 29 -->
+  <section class="scrub" data-nav="light" id="how" aria-label="Animation: a cable slides through the clip as you scroll">
+    <canvas id="stage" role="img" aria-label="A dark cable slides along the clip's channel, passing through it."></canvas>
+    <div class="scrub__captions">
+      <p class="scrub__label"><span id="frameNow">01</span> / <span id="frameTotal">30</span></p>
+      <div class="scrub__stack">
+        <p class="scrub__caption" data-step="0">A cable meets the clip.</p>
+        <p class="scrub__caption" data-step="1">It runs straight through the channel.</p>
+        <p class="scrub__caption" data-step="2">Held right where you put it.</p>
+      </div>
+    </div>
+    <div class="scrub__bar" aria-hidden="true"><div class="scrub__bar-fill" id="barFill"></div></div>
+  </section>
+
+  <!-- SPECS -->
+  <section class="specs" data-nav="light">
+    <h2 class="specs__title">Small on purpose.</h2>
+    <div class="tiles">
+      <article class="tile tile--dark">
+        <div class="tile__value">30<small>mm</small></div>
+        <div>
+          <h3 class="tile__name">Round adhesive base</h3>
+          <p class="tile__text">A flat disc, about 3&nbsp;mm thick, that gives the clip a wide, stable footprint.</p>
+        </div>
+      </article>
+      <article class="tile">
+        <div class="tile__value">8.6<small>mm</small></div>
+        <div>
+          <h3 class="tile__name">Low profile</h3>
+          <p class="tile__text">Overall height from the base to the top of the clip. It stays out of the way.</p>
+        </div>
+      </article>
+      <article class="tile">
+        <div class="tile__value">6<small>mm</small></div>
+        <div>
+          <h3 class="tile__name">Channel width</h3>
+          <p class="tile__text">Sized so a slim cable nests inside without touching the walls.</p>
+        </div>
+      </article>
+      <article class="tile tile--wide">
+        <svg class="tile__diagram" viewBox="0 0 320 130" fill="none" aria-hidden="true">
+          <ellipse cx="160" cy="104" rx="140" ry="18" fill="#e4e4e4"/>
+          <path d="M120 100 V66 A40 40 0 0 1 135 36 M200 100 V66 A40 40 0 0 0 185 36" stroke="#121212" stroke-width="10" stroke-linecap="round"/>
+          <circle cx="160" cy="64" r="22" fill="#121212"/>
+          <path d="M160 6 V26 M150 17 L160 28 L170 17" stroke="#ff5a1f" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <h3 class="tile__name">Open top, snap-fit</h3>
+          <p class="tile__text">The channel is open at the top, so a cable presses in from above. No threading it through from the end.</p>
+        </div>
+      </article>
+      <article class="tile">
+        <div class="tile__value">1</div>
+        <div>
+          <h3 class="tile__name">Cable, one point</h3>
+          <p class="tile__text">Each clip holds a single spot along the cable. Use a few along a run.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="get" data-nav="light" id="get">
+    <h2 class="get__h2"><span class="line"><span>Keep it</span></span><span class="line"><span>where it goes.</span></span></h2>
+    <a class="jbtn jbtn--solid" href="product.html"><span>Get Jaze Clips</span></a>
+  </section>
+
+</main>
+
+<script src="js/layout.js" data-part="footer"></script>
+
+<script src="js/vendor/gsap.min.js"></script>
+<script src="js/vendor/ScrollTrigger.min.js"></script>
+<script src="js/vendor/CustomEase.min.js"></script>
+<script src="js/bee-nav.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

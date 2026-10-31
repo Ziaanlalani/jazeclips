@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cable Holder — Scroll Animation</title>
+<link rel="stylesheet" href="css/cable-scroller.css">
+</head>
+<body>
+
+  <div class="spacer">
+    <div>
+      <h1>Scroll to thread the cable ↓</h1>
+      <p>This section plays frame_00.png → frame_29.png as you scroll, sticky-canvas style.</p>
+    </div>
+  </div>
+
+  <div class="scroll-track" id="scrollTrack">
+    <div class="sticky-stage">
+      <canvas id="stage"></canvas>
+    </div>
+  </div>
+
+  <div class="spacer">
+    <div>
+      <h1>End of sequence</h1>
+      <p>Scroll back up to reverse it.</p>
+    </div>
+  </div>
+
+  <div class="hud" id="hud">frame 0 / 29</div>
+  <div class="progress-rail"><div class="progress-fill" id="progressFill"></div></div>
+
+<script src="js/cable-scroller.js"></script>
+</body>
+</html>

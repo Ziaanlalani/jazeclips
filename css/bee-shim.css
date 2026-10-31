@@ -1,0 +1,33 @@
+/* Replaces the bits of the Webflow runtime CSS/JS the extracted Bee styles rely on, plus Jaze overrides. */
+* { box-sizing: border-box; }
+:root {
+  --_colors---honey-400: #ff5a1f;           /* Bee's yellow accent -> Jaze orange */
+  --_colors---wisteria-400: #ff5a1f;
+}
+.w-tab-pane { display: none; position: relative; }
+.w-tab-pane.w--tab-active { display: block; }
+.w-tab-content { display: block; position: relative; overflow: hidden; }
+.w-condition-invisible { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0,0,0,0); border: 0; white-space: nowrap; }
+.media-item img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+.footer__logo-mark { display: block; width: 100%; height: auto; fill: currentColor; }
+.nav__logo-text { font-weight: 700; letter-spacing: -.03em; font-size: 22px; line-height: 1; white-space: nowrap; display: inline-flex; align-items: center; gap: 8px; }
+.nav__logo-text i { width: 16px; height: 16px; border-radius: 50%; border: 3px solid currentColor; display: block; position: relative; }
+.product-tab-pane.is-exiting.w--tab-active .media-item { opacity: 0; transform: translate(0, -4vh); transition: all .25s cubic-bezier(.4, 0, .68, 1); }
+.product-tab-pane.prepare-entry.w--tab-active .media-item { transform: translate(0, 4vh); opacity: 0; }
+.product-tab-pane.w--tab-active .media-item { transform: translate(0, 0); opacity: 1; transition: all .5s cubic-bezier(.4, 0, .68, 1) .25s; }
+.product-image-container .w-tab-link:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.product-image-container .variant-active-bg { pointer-events: none; }
+html.nav-open, body.nav-open { overflow: hidden; }
+.product-tab-pane { width: 100%; height: 100%; }
+.media-item { inset: 0; height: 100%; }
+.nav__logo-text { font-size: 17px; gap: 6px; }
+.nav__logo-text i { width: 13px; height: 13px; border-width: 2.5px; }
+.product-varient-tab-thumbnnail { display: block; width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 20px; }
+.media-item img { object-position: 78% 80%; }
+.product-tab-pane[data-w-tab="Tab 2"] .media-item img, .product-tab-pane[data-w-tab="Tab 3"] .media-item img { object-position: 50% 50%; }
+/* Swiper's default bullet sizing would otherwise win over Bee's label pills */
+.card-slider-pagination .swiper-pagination-bullet { width: auto; height: auto; flex: none; white-space: nowrap; opacity: 1; margin: 0; }
+.card-slider-pagination.swiper-pagination { height: auto; width: fit-content; max-width: 100%; }
+.footer__product .product-tile__title + p { color: var(--_colors---slate-100); }
+main { position: relative; background: var(--_colors---background-primary, #fefefe); }

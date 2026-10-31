@@ -1,0 +1,154 @@
+  :root {
+    --bg: #f3f3f3;          /* matches the rendered frames exactly, so there is no seam */
+    --ink: #121212;
+    --ink-soft: #6b6b6b;
+    --card: #ffffff;
+    --accent: #ff5a1f;
+    --ease-out: cubic-bezier(.33, 1, .68, 1);
+    --pad: clamp(20px, 4vw, 56px);
+    --font: "Inter Tight", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--font);
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+  }
+  img, canvas { display: block; max-width: 100%; }
+  a { color: inherit; }
+
+  /* ---------- Buttons (ripple-fill hover adapted from bee.computer; .jbtn avoids clashing with Bee's .button) ---------- */
+  .jbtn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 26px;
+    border-radius: 100vw;
+    border: 1.5px solid var(--ink);
+    background: transparent;
+    color: var(--ink);
+    font: 500 16px/1 var(--font);
+    text-decoration: none;
+    overflow: hidden;
+    isolation: isolate;
+    cursor: pointer;
+    transition: transform .4s, color .4s;
+  }
+  .jbtn span { position: relative; z-index: 1; }
+  .jbtn::before {
+    content: "";
+    position: absolute;
+    left: -5%; right: -5%; top: 0; height: 100%;
+    background: var(--ink);
+    border-radius: 50% 50% 0 0;
+    transform: translateY(101%);
+    transition: transform .5s cubic-bezier(.4, 0, 0, 1), border-radius .5s cubic-bezier(.4, 0, 0, 1);
+    z-index: 0;
+  }
+  .jbtn:hover, .jbtn:focus-visible { color: #fff; transform: scaleX(1.02); transition: transform .6s cubic-bezier(.34, 5.56, .64, 1), color .4s; }
+  .jbtn:hover::before, .jbtn:focus-visible::before { transform: translateY(0); border-radius: 0; transition-duration: .5s, .9s; }
+  .jbtn--solid { background: var(--ink); color: #fff; }
+  .jbtn--solid::before { background: var(--accent); }
+  .jbtn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+
+  /* ---------- Hero ---------- */
+  .hero { position: relative; height: 100vh; min-height: 640px; overflow: hidden; }
+  .hero__content {
+    position: absolute; z-index: 2; left: var(--pad); right: var(--pad); top: clamp(96px, 16vh, 180px);
+    max-width: 1100px;
+  }
+  .hero__headline {
+    margin: 0;
+    font-weight: 600;
+    font-size: clamp(48px, 9.5vw, 148px);
+    line-height: .92;
+    letter-spacing: -.045em;
+  }
+  .js .hero-pending .hero__headline { opacity: 0; }
+  .hero__mask { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
+  .hero__line { display: block; will-change: transform; }
+  .hero__subtitle { margin: 28px 0 0; max-width: 440px; font-size: clamp(17px, 1.5vw, 21px); color: var(--ink-soft); }
+  .hero__buttons { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .js .hero-pending .hero__subtitle, .js .hero-pending .hero__buttons { opacity: 0; }
+  .hero__image-container { position: absolute; inset: auto 0 0 0; height: 80%; z-index: 1; }
+  .hero__image { width: 100%; height: 100%; object-fit: cover; object-position: 60% 55%; }
+
+  /* ---------- Scroll-reveal statement ---------- */
+  .scroll-text { padding: clamp(110px, 22vh, 240px) var(--pad); }
+  .scroll-text__item {
+    margin: 0 auto; max-width: 1080px;
+    font-size: clamp(30px, 5vw, 72px); font-weight: 500; line-height: 1.08; letter-spacing: -.03em;
+  }
+  .scroll-text__word { display: inline-block; }
+
+  /* ---------- Cable scrubber (pinned canvas) ---------- */
+  .scrub { position: relative; height: 100vh; overflow: hidden; background: var(--bg); }
+  .scrub canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .scrub__captions { position: absolute; z-index: 2; left: var(--pad); right: var(--pad); top: clamp(92px, 15vh, 160px); pointer-events: none; }
+  .scrub__label { margin: 0 0 14px; font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-soft); font-variant-numeric: tabular-nums; }
+  .scrub__stack { position: relative; min-height: 2.1em; }
+  .scrub__caption {
+    margin: 0; font-size: clamp(28px, 4.6vw, 64px); font-weight: 600; letter-spacing: -.035em; line-height: 1;
+    max-width: 12em;
+  }
+  .js .scrub__caption { position: absolute; left: 0; top: 0; opacity: 0; }
+  .scrub__bar { position: absolute; z-index: 3; right: var(--pad); top: 50%; width: 3px; height: 120px; margin-top: -60px; background: rgba(0,0,0,.1); border-radius: 2px; }
+  .scrub__bar-fill { position: absolute; left: 0; bottom: 0; width: 100%; height: 0; background: var(--ink); border-radius: 2px; }
+
+  /* ---------- Spec tiles ---------- */
+  .specs { padding: clamp(90px, 16vh, 180px) var(--pad); max-width: 1320px; margin: 0 auto; }
+  .specs__title { margin: 0 0 clamp(36px, 6vh, 72px); font-size: clamp(34px, 5.6vw, 84px); line-height: .98; letter-spacing: -.04em; font-weight: 600; max-width: 12em; }
+  .tiles { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+  .tile {
+    background: var(--card); border-radius: 28px; padding: clamp(22px, 2.6vw, 36px);
+    display: flex; flex-direction: column; justify-content: space-between; min-height: 260px;
+    grid-column: span 4;
+  }
+  .tile--wide { grid-column: span 8; }
+  .tile--dark { background: var(--ink); color: #fff; }
+  .tile--dark .tile__text { color: #b9b9b9; }
+  .tile__value { font-size: clamp(56px, 7vw, 112px); font-weight: 600; letter-spacing: -.05em; line-height: .9; font-variant-numeric: tabular-nums; }
+  .tile__value small { font-size: .32em; letter-spacing: -.01em; margin-left: .15em; font-weight: 500; color: var(--ink-soft); }
+  .tile--dark .tile__value small { color: #9a9a9a; }
+  .tile__name { margin: 28px 0 6px; font-size: 20px; font-weight: 600; letter-spacing: -.02em; }
+  .tile__text { margin: 0; font-size: 16px; color: var(--ink-soft); max-width: 30em; }
+  /* tiny schematic inside the wide tile */
+  .tile__diagram { width: 100%; max-width: 320px; height: auto; margin-bottom: 8px; }
+
+  /* ---------- CTA / footer ---------- */
+  .get { padding: clamp(100px, 20vh, 220px) var(--pad); text-align: center; }
+  .get__h2 { margin: 0 auto 32px; max-width: 11em; font-size: clamp(44px, 8vw, 128px); line-height: .94; letter-spacing: -.045em; font-weight: 600; }
+  .get__h2 .line { display: block; overflow: hidden; padding-bottom: .08em; margin-bottom: -.08em; }
+  .get__h2 .line > span { display: block; }
+  .get .jbtn { font-size: 18px; padding: 18px 34px; }
+
+  /* ---------- Small screens ---------- */
+  @media (max-width: 991px) {
+    .tile, .tile--wide { grid-column: span 6; }
+    .tile--wide { grid-column: span 12; }
+    .hero__image-container { height: 62%; }
+    .hero__image { object-position: 62% 50%; }
+  }
+  @media (max-width: 640px) {
+    .tile, .tile--wide { grid-column: span 12; min-height: 220px; }
+    .hero__subtitle { max-width: none; }
+  }
+
+  /* ---------- Reduced motion: no pin, no scrub, everything visible ---------- */
+  @media (prefers-reduced-motion: reduce) {
+    .js .hero-pending .hero__headline, .js .hero-pending .hero__subtitle, .js .hero-pending .hero__buttons { opacity: 1; }
+    .scrub { height: auto; padding: 0 0 48px; }
+    .scrub canvas { position: relative; height: 56vh; }
+    .scrub__captions { position: relative; left: auto; right: auto; bottom: auto; padding: 24px var(--pad) 0; }
+    .js .scrub__caption { position: static; opacity: 1; margin-bottom: 12px; }
+    .scrub__bar { display: none; }
+    .jbtn, .jbtn::before { transition: none; }
+  }
+
+  /* Page background sits on <main> so Bee's sticky footer (fixed behind it) is revealed only at the end */
+  main { background: var(--bg); }

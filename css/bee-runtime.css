@@ -1,0 +1,15 @@
+/* Rules for classes toggled at runtime (active, swiper-*, etc.) missed by the static extraction. */
+.swiper-slide.swiper-slide-active {
+  opacity: 1;
+}
+.slider-text-item.active {
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  opacity: 1;
+  pointer-events: auto;
+  grid-template-rows: 1px;
+  grid-auto-columns: 1fr;
+  display: grid;
+  position: static;
+  inset: 0% auto auto 0%;
+}

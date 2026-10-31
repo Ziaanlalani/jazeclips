@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jaze Clips | Cart</title>
+<script>document.documentElement.classList.add('js');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/bee-nav.css">
+<link rel="stylesheet" href="css/bee-grid.css">
+<link rel="stylesheet" href="css/bee-custom.css">
+<link rel="stylesheet" href="css/bee-shim.css">
+<link rel="stylesheet" href="css/shop.css">
+<style>
+  .cart-wrap{ padding: 140px 0 96px; }
+  h1.page-title{ font-size: 28px; margin-bottom: 36px; }
+
+  .cart-grid{
+    display: grid;
+    grid-template-columns: 1.3fr 0.9fr;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .line-item{
+    display: grid;
+    grid-template-columns: 84px 1fr auto auto;
+    gap: 20px;
+    align-items: center;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .line-item img{ width: 84px; height: 64px; object-fit: cover; border-radius: 4px; background: var(--bg-stage); }
+  .li-title{ font-size: 15.5px; font-weight: 500; }
+  .li-sub{ font-size: 13px; color: var(--stone); margin-top: 4px; font-family: var(--font-mono); }
+  .li-qty{
+    display: flex; align-items: center;
+    border: 1px solid var(--line-strong); border-radius: 8px; overflow: hidden;
+  }
+  .li-qty button{ width: 32px; height: 36px; border: none; background: none; cursor: pointer; font-size: 15px; }
+  .li-qty button:hover{ background: var(--bg-stage); }
+  .li-qty span{ width: 30px; text-align: center; font-family: var(--font-mono); font-size: 14px; }
+  .li-price{ font-family: var(--font-mono); font-size: 15px; min-width: 64px; text-align: right; }
+  .li-remove{
+    background: none; border: none; color: var(--stone); cursor: pointer; font-size: 13px;
+    text-decoration: underline; text-underline-offset: 2px; margin-top: 10px; display: inline-block;
+  }
+  .li-remove:hover{ color: var(--ink); }
+
+  .summary{
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 28px;
+    position: sticky;
+    top: 96px;
+  }
+  .summary h2{ font-size: 16px; font-weight: 600; margin-bottom: 18px; }
+  .sum-row{ display: flex; justify-content: space-between; font-size: 14.5px; padding: 9px 0; color: var(--ink-soft); }
+  .sum-row.total{ color: var(--ink); font-weight: 600; font-size: 16px; border-top: 1px solid var(--line); margin-top: 8px; padding-top: 16px; }
+  .sum-row .v{ font-family: var(--font-mono); }
+
+  /* checkout step */
+  #checkoutStep{ display: none; margin-top: 44px; }
+  .form-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 18px; }
+  .form-grid .full{ grid-column: 1 / -1; }
+  label{ font-size: 13px; color: var(--ink-soft); display: block; margin-bottom: 6px; }
+  input[type="text"], input[type="email"]{
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line-strong);
+    border-radius: 6px;
+    font-family: var(--font-display);
+    font-size: 14.5px;
+    background: #fff;
+  }
+  input:focus{ outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+
+  .payment-box{
+    margin-top: 28px;
+    border: 1px dashed var(--line-strong);
+    border-radius: 6px;
+    padding: 18px;
+    background: var(--bg-stage);
+    font-size: 13.5px;
+    color: var(--stone);
+  }
+  .payment-box .tag{
+    font-family: var(--font-mono);
+    font-size: 11px;
+    background: #fff;
+    border: 1px solid var(--line-strong);
+    padding: 2px 7px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    display: inline-block;
+  }
+
+  .confirm-state{ display:none; text-align:center; padding: 80px 0; }
+  .confirm-state h2{ font-size: 24px; }
+  .confirm-state p{ color: var(--ink-soft); margin-top: 10px; }
+
+  .empty-cart{ text-align: center; padding: 60px 0; color: var(--ink-soft); }
+
+  @media (max-width: 860px){
+    .cart-grid{ grid-template-columns: 1fr; }
+    .form-grid{ grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<script src="js/layout.js" data-part="nav"></script>
+
+<main id="main" class="cart-wrap" data-nav="light">
+  <div class="wrap">
+    <h1 class="page-title">Your cart</h1>
+
+    <div id="cartStep">
+      <div class="cart-grid">
+        <div>
+          <div class="line-item" id="lineItem">
+            <img src="assets/frames/frame_15.png" alt="">
+            <div>
+              <div class="li-title">Jaze Clip, 30 mm</div>
+              <div class="li-sub">SKU BC-30-01</div>
+              <button class="li-remove" id="removeBtn">Remove</button>
+            </div>
+            <div class="li-qty">
+              <button type="button" id="cartQtyMinus" aria-label="Decrease quantity">–</button>
+              <span id="cartQtyValue">1</span>
+              <button type="button" id="cartQtyPlus" aria-label="Increase quantity">+</button>
+            </div>
+            <div class="li-price mono" id="lineTotal">$14.00</div>
+          </div>
+          <div class="empty-cart" id="emptyCart" style="display:none;">
+            Your cart is empty. <a href="product.html">Go find the clip.</a>
+          </div>
+        </div>
+
+        <div class="summary">
+          <h2>Order summary</h2>
+          <div class="sum-row"><span>Subtotal</span><span class="v" id="sumSubtotal">$14.00</span></div>
+          <div class="sum-row"><span>Shipping</span><span class="v">$4.00</span></div>
+          <div class="sum-row total"><span>Total</span><span class="v" id="sumTotal">$18.00</span></div>
+          <button class="btn btn-primary btn-block" id="toCheckoutBtn" style="margin-top:20px;">Continue to checkout</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="checkoutStep">
+      <div class="cart-grid">
+        <div>
+          <h2 style="font-size:17px; margin-bottom: 6px;">Shipping address</h2>
+          <p style="color:var(--ink-soft); font-size:13.5px;">This form is a visual placeholder — nothing is submitted yet.</p>
+          <div class="form-grid">
+            <div class="full"><label for="fname">Full name</label><input type="text" id="fname" placeholder="Jordan Lee"></div>
+            <div class="full"><label for="email">Email</label><input type="email" id="email" placeholder="jordan@example.com"></div>
+            <div class="full"><label for="addr">Address</label><input type="text" id="addr" placeholder="123 Market Street"></div>
+            <div><label for="city">City</label><input type="text" id="city" placeholder="Austin"></div>
+            <div><label for="zip">ZIP</label><input type="text" id="zip" placeholder="73301"></div>
+          </div>
+
+          <div class="payment-box">
+            <span class="tag">preview</span>
+            <div>Payment UI — not wired to a processor yet. This box represents where card entry will go once a backend is connected.</div>
+          </div>
+        </div>
+
+        <div class="summary">
+          <h2>Order summary</h2>
+          <div class="sum-row"><span>Subtotal</span><span class="v" id="sumSubtotal2">$14.00</span></div>
+          <div class="sum-row"><span>Shipping</span><span class="v">$4.00</span></div>
+          <div class="sum-row total"><span>Total</span><span class="v" id="sumTotal2">$18.00</span></div>
+          <button class="btn btn-primary btn-block" id="placeOrderBtn" style="margin-top:20px;">Place order</button>
+          <button class="btn btn-secondary btn-block" id="backToCartBtn" style="margin-top:10px;">Back to cart</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="confirm-state" id="confirmState">
+      <h2>Order confirmed — preview only</h2>
+      <p>In the live site, this is where a real order confirmation and email receipt would fire.</p>
+      <a href="index.html" class="btn btn-secondary" style="margin-top:24px;">Back to home</a>
+    </div>
+  </div>
+</main>
+
+<script src="js/layout.js" data-part="footer"></script>
+
+<script src="js/vendor/gsap.min.js"></script>
+<script src="js/vendor/ScrollTrigger.min.js"></script>
+<script src="js/bee-nav.js"></script>
+<script>
+  const UNIT_PRICE = 14.00;
+  const SHIPPING = 4.00;
+  let qty = 1;
+
+  const cartQtyValue = document.getElementById('cartQtyValue');
+  const lineTotal = document.getElementById('lineTotal');
+  const sumSubtotal = document.getElementById('sumSubtotal');
+  const sumTotal = document.getElementById('sumTotal');
+  const sumSubtotal2 = document.getElementById('sumSubtotal2');
+  const sumTotal2 = document.getElementById('sumTotal2');
+
+  function fmt(n){ return '$' + n.toFixed(2); }
+
+  function recalc(){
+    const sub = UNIT_PRICE * qty;
+    lineTotal.textContent = fmt(sub);
+    sumSubtotal.textContent = fmt(sub);
+    sumTotal.textContent = fmt(sub + SHIPPING);
+    sumSubtotal2.textContent = fmt(sub);
+    sumTotal2.textContent = fmt(sub + SHIPPING);
+  }
+
+  document.getElementById('cartQtyPlus').addEventListener('click', () => { qty = Math.min(9, qty+1); cartQtyValue.textContent = qty; recalc(); });
+  document.getElementById('cartQtyMinus').addEventListener('click', () => { qty = Math.max(1, qty-1); cartQtyValue.textContent = qty; recalc(); });
+
+  document.getElementById('removeBtn').addEventListener('click', () => {
+    document.getElementById('lineItem').style.display = 'none';
+    document.getElementById('emptyCart').style.display = 'block';
+    document.getElementById('toCheckoutBtn').disabled = true;
+    document.getElementById('toCheckoutBtn').style.opacity = 0.5;
+  });
+
+  document.getElementById('toCheckoutBtn').addEventListener('click', () => {
+    document.getElementById('cartStep').style.display = 'none';
+    document.getElementById('checkoutStep').style.display = 'block';
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+
+  document.getElementById('backToCartBtn').addEventListener('click', () => {
+    document.getElementById('checkoutStep').style.display = 'none';
+    document.getElementById('cartStep').style.display = 'block';
+  });
+
+  document.getElementById('placeOrderBtn').addEventListener('click', () => {
+    document.getElementById('checkoutStep').style.display = 'none';
+    document.getElementById('confirmState').style.display = 'block';
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+
+  recalc();
+</script>
+</body>
+</html>
